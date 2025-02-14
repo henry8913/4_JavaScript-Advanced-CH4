@@ -1,0 +1,15 @@
+{
+  "name": "epicbooks",
+  "version": "1.0.0",
+  "description": "EPICBooks is your ultimate online bookstore, offering a wide selection of books across genres. Our platform allows users to easily search, browse, and find their next favorite read.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Discover your next favorite book in our collection.\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "sass": "^1.85.0"
+  }
+}
