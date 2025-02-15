@@ -91,4 +91,4 @@ Le contribuzioni sono sempre benvenute! Apri una **issue** o invia un **pull req
 [Henry](https://github.com/henry8913)
 
 ## 📝 Licenza
-Distribuito sotto licenza MIT. Vedi `LICENSE` per ulteriori dettagli.
+Distribuito sotto licenza [MIT](https://github.com/henry8913/4_JavaScript-Advanced-CH4/blob/main/LICENSE.txt). Vedi `LICENSE` per ulteriori dettagli.
