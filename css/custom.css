@@ -30,6 +30,11 @@
   }
 }
 
+.book-card-in-cart {
+  border: 2px solid #28a745;
+}
+
+
 @media (min-width: 1024px) {
   .container {
     max-width: 1200px;

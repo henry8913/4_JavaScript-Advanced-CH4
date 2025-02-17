@@ -1,4 +1,3 @@
-
 /* Global Variables */
 let books = [];
 let cartArray = [];
@@ -70,9 +69,11 @@ function displayBooks(filteredBooks = books) {
                                 Skip
                             </button>
                         </div>
-                        <button onclick="showBookDetails('${book.asin}')" class="btn btn-link btn-sm p-0">
-                            <i class="bi bi-info-circle"></i>
-                        </button>
+                        <div>
+                            <a href="details.html?id=${book.asin}" class="btn btn-link text-primary p-0">
+                                <i class="bi bi-info-circle me-1"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -92,6 +93,10 @@ function addToCart(asin) {
         addButton.textContent = 'Added';
         addButton.classList.replace('btn-primary', 'btn-secondary');
         addButton.disabled = true;
+
+        // Add border to card
+        const bookCard = document.querySelector(`#book-${asin} .card`);
+        bookCard.classList.add('book-card-in-cart');
     }
 }
 
@@ -135,23 +140,7 @@ function removeFromCart(asin) {
     }
 }
 
-function showBookDetails(asin) {
-    const book = books.find(b => b.asin === asin);
-    const detailsContainer = document.getElementById('book-details');
 
-    detailsContainer.innerHTML = `
-        <div class="d-flex justify-content-between align-items-start mb-3">
-            <h5 class="modal-title">${book.title}</h5>
-            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-        </div>
-        <img src="${book.img}" alt="${book.title}" class="modal-book-image">
-        <p class="text-muted mb-2">Category: ${book.category}</p>
-        <p class="text-muted mb-2">Price: $${book.price}</p>
-        <p class="text-muted mb-0">ASIN: ${book.asin}</p>
-    `;
-
-    bookModal.show();
-}
 
 function skipBook(asin) {
     const bookCard = document.getElementById(`book-${asin}`);
@@ -205,7 +194,7 @@ document.addEventListener('DOMContentLoaded', () => {
     fetchBooks();
 
     cartModal = new bootstrap.Modal(document.getElementById('cart-modal'));
-    bookModal = new bootstrap.Modal(document.getElementById('book-modal'));
+
     countdownModal = new bootstrap.Modal(document.getElementById('countdown-modal'));
 
     const searchInput = document.getElementById('search-input');
@@ -237,5 +226,26 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('cart-button').addEventListener('click', showCart);
     document.getElementById('checkout-button').addEventListener('click', () => {
         window.location.href = 'checkout.html';
+    });
+
+    document.getElementById('clear-cart-button').addEventListener('click', () => {
+        cartArray = [];
+        localStorage.setItem('cart', JSON.stringify(cartArray));
+        updateCartCount();
+        showCart();
+
+        // Reset all add buttons
+        books.forEach(book => {
+            const addButton = document.getElementById(`add-${book.asin}`);
+            if (addButton) {
+                addButton.textContent = 'Add to Cart';
+                addButton.classList.replace('btn-secondary', 'btn-primary');
+                addButton.disabled = false;
+            }
+            const bookCard = document.querySelector(`#book-${book.asin} .card`);
+            if (bookCard) {
+                bookCard.classList.remove('book-card-in-cart');
+            }
+        });
     });
 });
